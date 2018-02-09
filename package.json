@@ -1,0 +1,32 @@
+{
+  "name": "sequelize-generator-file",
+  "version": "1.0.0",
+  "description": "A Node.js file generator, based on Sequelize models",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gen": "node ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunoseco/sequelize-generator-file.git"
+  },
+  "keywords": [
+    "node",
+    "generator",
+    "file",
+    "sequelize"
+  ],
+  "author": "brunosecco.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunoseco/sequelize-generator-file/issues"
+  },
+  "homepage": "https://github.com/brunoseco/sequelize-generator-file#readme",
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "glob": "^7.1.2",
+    "path": "^0.12.7",
+    "sequelize": "^4.33.1"
+  }
+}
