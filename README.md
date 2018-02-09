@@ -1,6 +1,7 @@
-# sequelize-generator-file
-A Node.js file generator, based on Sequelize models
+# SEQUELIZE-GENERATOR-FILE
+A Node.js file generator, will be based on Sequelize models
 
+### Under Development
 
 ## Start
 `npm install`
@@ -14,7 +15,7 @@ Create your templates in folder `templates` and add to `configs = { filesToGener
 ## Result
 Then will be export to `.\sequelize-generator-file\generator\output\controller\people.controller.js`
 
-##Tags Implemented
-`<#classNameCapitalize#>` >> People
-`<#className#>` >> people
+## Tags Implemented
+`<#classNameCapitalize#>` >> People <br />
+`<#className#>` >> people <br />
 
