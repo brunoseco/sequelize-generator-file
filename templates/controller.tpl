@@ -53,11 +53,7 @@ exports.put = async (req, res, next) => {
     if (!alvo)
       res.errorResult({}, 'Registro não encontrado!');
 
-    if (data.password !== undefined)
-      data.password = await authService.setPassword(data.password);
-
     alvo = controller.transferTo(<#classNameCapitalize#>, data, alvo);
-
     await alvo.save();
     res.successResult(alvo);
   } catch (e) {
@@ -72,7 +68,7 @@ exports.delete = async (req, res, next) => {
     const alvo = await <#classNameCapitalize#>.findById(id);
 
     if (!alvo)
-      res.errorResult({}, 'Usuário não encontrado!');
+      res.errorResult({}, 'Registro não encontrado!');
 
     await alvo.destroy();
 
