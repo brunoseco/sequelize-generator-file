@@ -2,6 +2,7 @@
 A Node.js file generator, will be based on Sequelize models
 
 ### Under Development
+### Current templates work with https://github.com/brunoseco/api-nodejs-seed
 
 ## Start
 `npm install`
