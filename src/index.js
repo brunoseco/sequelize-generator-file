@@ -4,7 +4,7 @@ const glob = require('glob')
 
 const config = require('./config.json')
 
-console.log("== Iniciando gerando")
+console.log("== Iniciando gerador")
 
 String.prototype.capitalize = function () { return this.replace(/(^|\s)\S/g, l => l.toUpperCase()); }
 
@@ -14,7 +14,6 @@ for (let model of config.models) {
   console.log("==== Classe gerada > " + modelName);
 
   for (let template of model.templates) {
-
     const file = config.templateFiles.filter(_ => _.name == template)[0];
 
     var textFile = fse.readFileSync(file.input, 'utf8');
@@ -101,9 +100,8 @@ for (let model of config.models) {
     textFile = textFile.replace(new RegExp(/<#modelFields#>/, 'g'), textFields);
 
     if (file.output) {
-      fse.mkdirs(file.output, () => {
-        fse.writeFile(`${file.output}/${modelName}.${file.ext}`, textFile);
-      });
+      fse.mkdirsSync(file.output);
+      fse.writeFileSync(`${file.output}/${modelName}.${file.ext}`, textFile);
     }
 
   }

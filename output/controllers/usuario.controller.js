@@ -1,34 +1,79 @@
 'use strict';
 
 const Sequelize = require('sequelize');
-const sequelize = require('../sequelize.config');
 
-const Usuario = sequelize.define('Usuario', {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  nome: {
-    type: Sequelize.STRING(100),
-    allowNull: true,
-  },
-  email: {
-    type: Sequelize.STRING(100),
-    validate: { isEmail: true },
-  },
-  doc: {
-    type: Sequelize.STRING(11),
-    validate: { is: /^([0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2})$/g },
-    set(value) { this.setDataValue('doc', value.replace(/D/g, '')); }
-  },
-  celular: {
-    type: Sequelize.STRING(16),
-    set(value) { this.setDataValue('celular', value.replace(/D/g, '')); }
-  },
+const Usuario = require('../models/usuario');
 
-});
+const controller = require('./controller');
+const authService = require('../services/auth-service');
 
-Usuario.sync();
+exports.get = async (req, res, next) => {
+  try {
+    const filters = req.query;
+    const query = controller.queryBase(Usuario, filters);
+    const results = await Usuario.findAll({ where: query });
 
-module.exports = Usuario;
+    res.successResult(results);
+  } catch (e) {
+    res.errorResult(e);
+  }
+};
+
+exports.getById = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const result = await Usuario.findById(id);
+
+    res.successResult(result);
+  } catch (e) {
+    res.errorResult(e);
+  }
+};
+
+exports.post = async (req, res, next) => {
+  try {
+    const data = req.body;
+    data.password = await authService.setPassword(data.password);
+    data = controller.transferTo(Usuario, data);
+
+    const alvo = await Usuario.create(data);
+    res.successResult(alvo);
+  } catch (e) {
+    res.errorResult(e);
+  }
+};
+
+exports.put = async (req, res, next) => {
+  try {
+
+    const data = req.body;
+    const id = data.id;
+    const alvo = await Usuario.findById(id);
+
+    if (!alvo)
+      res.errorResult({}, 'Registro não encontrado!');
+
+    alvo = controller.transferTo(Usuario, data, alvo);
+    await alvo.save();
+    res.successResult(alvo);
+  } catch (e) {
+    res.errorResult(e);
+  }
+};
+
+
+exports.delete = async (req, res, next) => {
+  try {
+    const id = req.body.id;
+    const alvo = await Usuario.findById(id);
+
+    if (!alvo)
+      res.errorResult({}, 'Registro não encontrado!');
+
+    await alvo.destroy();
+
+    res.successResult(alvo);
+  } catch (e) {
+    res.errorResult(e);
+  }
+};
