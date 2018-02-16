@@ -1,0 +1,65 @@
+{
+  "models": [
+    {
+      "name": "usuario",
+      "description": "Usuário",
+      "fields": [
+        {
+          "propertyName": "id",
+          "type": "int",
+          "autoIncrement": true,
+          "primaryKey": true,
+          "allowNull": false
+        },
+        {
+          "propertyName": "nome",
+          "type": "string",
+          "allowNull": true,
+          "maxLength": 100
+        },
+        {
+          "propertyName": "email",
+          "type": "email"
+        },
+        {
+          "propertyName": "doc",
+          "type": "cpf"
+        },
+        {
+          "propertyName": "celular",
+          "type": "phone"
+        }
+
+      ],
+      "templates": [
+        "controller",
+        "route",
+        "model"
+      ]
+    }
+  ],
+  "templateFiles": [
+    {
+      "name": "controller",
+      "input": "./templates/controller.tpl",
+      "output": "./output/controllers",
+      "ext": "controller.js"
+    },
+    {
+      "name": "route",
+      "input": "./templates/route.tpl",
+      "output": "./output/routes",
+      "ext": "route.js"
+    },
+    {
+      "name": "model",
+      "input": "./templates/model.tpl",
+      "output": "./output/models",
+      "ext": "model.js"
+    },
+    {
+      "name": "model.field.default",
+      "input": "./templates/model.field.default.tpl"
+    }
+  ]
+}
